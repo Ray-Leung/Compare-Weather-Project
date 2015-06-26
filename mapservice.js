@@ -28,33 +28,24 @@ function initialize() {
         // $("#details").html(JSON.stringify(response, null, 4));
         console.log(address);
     }, "jsonp");
-    $.get("http://www.geoplugin.net/json.gp?ip="+ ip,function(response) {
-          latitude=this.geoplugin_latitude；
-          longtitude=this.geoplugin_longitude；
-           console.log(latitude);
-            console.log(longtitude);
 
-    });
+    var x = document.getElementById("demo");
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+    function showPosition(position) {
+        latitude =  position.coords.latitude;
+        longtitude =  position.coords.longitude;
+        console.log(latitude+' '+longtitude);
+        initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+        map.setCenter(initialLocation);
+    }
 
-    // request the LatLnhg of the local location from google maps
-    /*function codeAddress() {
-       // var requestApi = "https://maps.googleapis.com/maps/api/geocode/json?address="
-         //                   + address
-          //                  + ",+CA&key=AIzaSyBOhmhAeKeNhgAdEkM_XLo-wTiwUoXAxLs";
 
-        var address = document.getElementById('address').value;
-        geocoder.geocode( { 'address': address}, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location);
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location
-                });
-            } else {
-                alert('Geocode was not successful for the following reason: ' + status);
-            }
-        });
-    }*/
     map = new google.maps.Map(document.getElementById('map-canvas'),
         mapOptions);
     // Add interaction listeners to make weather requests
