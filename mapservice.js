@@ -9,6 +9,8 @@ var gettingData = false;
 var openWeatherMapKey = "c2555fc14b121f3b4ada74738481b1b1"
 var address ;
 var ip;
+var latitude;
+var longtitude;
 function initialize() {
     geocoder = new google.maps.Geocoder();
 
@@ -27,7 +29,10 @@ function initialize() {
         console.log(address);
     }, "jsonp");
     $.get("http://www.geoplugin.net/json.gp?ip="+ ip,function(response) {
-
+          latitude=this.geoplugin_latitude；
+          longtitude=this.geoplugin_longitude；
+           console.log(latitude);
+            console.log(longtitude);
 
     });
 
