@@ -23,27 +23,17 @@ function initialize() {
     $.get("http://ipinfo.io", function (response) {
         this.response = response;
         ip= this.response.ip;
-        //$("#address").html("Location: " +
        address  =    this.response.city+","+this.response.region;
+       var  loc = this.response.loc;
         // $("#details").html(JSON.stringify(response, null, 4));
-        console.log(address);
+        this.latitude = parseInt(loc.substr(0,5));
+        this.longtitude=parseInt(loc.substr(8,10));
+        var pos = new google.maps.LatLng(latitude,latitude);
+
+        console.log(address+" "+ response.loc);
     }, "jsonp");
 
-    var x = document.getElementById("demo");
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
-        }
-    }
-    function showPosition(position) {
-        latitude =  position.coords.latitude;
-        longtitude =  position.coords.longitude;
-        console.log(latitude+' '+longtitude);
-        initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-        map.setCenter(initialLocation);
-    }
+
 
 
     map = new google.maps.Map(document.getElementById('map-canvas'),
