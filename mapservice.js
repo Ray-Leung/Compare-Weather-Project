@@ -12,7 +12,6 @@ var ip;
 var latitude;
 var longtitude;
 function initialize() {
-    geocoder = new google.maps.Geocoder();
 
     var mapOptions = {
         zoom: 4,
@@ -20,20 +19,32 @@ function initialize() {
        center: new google.maps.LatLng(50,-50)
     };
     // get the user's location by ip
-    $.get("http://ipinfo.io", function (response) {
+    $.get("http://ipinfo.io",latitude,  function (response) {
         this.response = response;
         ip= this.response.ip;
        address  =    this.response.city+","+this.response.region;
        var  loc = this.response.loc;
         // $("#details").html(JSON.stringify(response, null, 4));
-        this.latitude = parseInt(loc.substr(0,5));
-        this.longtitude=parseInt(loc.substr(8,10));
-        var pos = new google.maps.LatLng(latitude,latitude);
-
+       latitude = parseInt(loc.substr(0,5));
+        longtitude=parseInt(loc.substr(8,10));
+        updateMaps(latitude,longtitude);
         console.log(address+" "+ response.loc);
     }, "jsonp");
 
+    function updateMaps(lat,lng){
+            this.lat = lat;
+            this.lng = lng;
+        console.log(this.lat+" "+this.lng);
+        var latlng = new google.maps.LatLng(lat, lng);
+        map.setZoom(5);
+        map.setCenter(latlng);
+        mark = new google.maps.Marker({
+            position: latlng,
+            map: map
 
+
+        });
+    }
 
 
     map = new google.maps.Map(document.getElementById('map-canvas'),
