@@ -14,6 +14,6 @@ Then it will compare the local temperature with the the temperatures of the majo
  
  <br /> Google Map API
  <br />1:https://github.com/google/maps-for-work-samples
- <br />2. https://developers.google.com/maps/documentation/javascript/
+ <br />2:https://developers.google.com/maps/documentation/javascript/
 
 
